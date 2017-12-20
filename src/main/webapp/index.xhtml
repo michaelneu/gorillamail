@@ -1,10 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>foobar</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+    </h:head>
+    <h:body>
+        <ui:composition template="layout.xhtml">
+            <ui:define name="page">
+                <div class="landing jumbotron">
+                    <div class="container">
+                        <h1>gorillamail</h1>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
