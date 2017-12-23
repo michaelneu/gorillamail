@@ -2,17 +2,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
             xmlns:h="http://xmlns.jcp.org/jsf/html"
-            xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
-        <title>foobar</title>
+        <title>gorillamail</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </h:head>
     <h:body>
         <ui:composition template="layout.xhtml">
             <ui:define name="page">
-                <div class="landing jumbotron">
-                    <div class="container">
-                        <h1>gorillamail</h1>
+                <div class="landing">
+                    <div class="content">
+                        <h1>gorillamail <span class="slogan">send with<br />confidence</span></h1>
+        
+                        Join the revolution of e-mail now.
+        
+                        <h:form>
+                            <h:inputText styleClass="transparent" a:placeholder="me@example.com" />
+                            <h:commandButton styleClass="btn btn-primary" value="Sign me up" action="signup_user"/>
+                        </h:form>
                     </div>
                 </div>
             </ui:define>

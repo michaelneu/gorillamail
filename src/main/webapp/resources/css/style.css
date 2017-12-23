@@ -1,11 +1,137 @@
-.landing.jumbotron {
-    background-image: url("#{resource['images/cover-image.jpg']}");
-    background-size: cover;
-    background-position: center top;
-    
+.landing {
+    position: relative;
+
+    background: linear-gradient(to bottom right, #19dcba, #00babd);
+    padding-top: 30vh;
+    padding-bottom: 30vh;
+
     color: #fff;
-    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.landing .content {
+    text-align: center;
+}
+
+.landing .content h1 {
+    font-size: 5rem;
+}
+
+.landing .content h1 .slogan {
+    display: inline-block;
+    font-size: 0.45em;
+    line-height: 1;
+    text-align: left;
+}
+
+.landing .content form {
+    margin-top: 2rem;
+}
+
+.landing .content form input[type="text"] {
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+
+    background-color: transparent;
+    color: #fff;
+
+    border: none;
+    border-bottom: 2px solid #fff;
+
+    outline: none;
+}
+
+.landing:before,
+.landing:after,
+.landing .content:before,
+.landing .content:after {
+    content: " ";
+    display: block;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
     
-    padding-top: 40vh;
-    padding-bottom: 40vh;
+    background-image: url("#{resource['images/mail-sending-icon.png']}");
+    background-size: 100% auto;
+
+    animation-name: mail-movement;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    
+    width: 50px;
+    height: 50px;
+
+    opacity: 0;
+}
+
+@keyframes mail-movement {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+        transform: translateX(10%);
+    }
+
+    20% {
+        opacity: 0;
+        transform: translateX(20%);
+    }
+
+    100% {
+        transform: none;
+    }
+}
+
+.landing:before {
+    top: 20%;
+    left: 30%;
+    animation-delay: 1s;
+}
+
+.landing:after {
+    top: 70%;
+    left: 60%;
+    animation-delay: 3s;
+}
+
+.landing .content:before {
+    top: 30%;
+    left: 50%;
+    animation-delay: 4s;
+}
+
+.landing .content:after {
+    top: 80%;
+    left: 20%;
+    animation-delay: 5s;
+}
+
+.transparent::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.transparent::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.transparent:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.transparent:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.btn.btn-primary {
+    background-color: #19dcba !important;
+    border-color: #15bea2 !important;
+    cursor: pointer;
+}
+
+.btn.btn-primary:active,
+.btn.btn-primary:focus {
+    box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 0.2) !important;
 }
