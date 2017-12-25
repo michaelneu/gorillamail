@@ -1,0 +1,151 @@
+.mail-animation(@top; @left; @delay) {
+    top: @top;
+    left: @left;
+    animation-delay: @delay;
+}
+
+.landing {
+    position: relative;
+
+    background: linear-gradient(to bottom right, #19dcba, #00babd);
+    padding-top: 30vh;
+    padding-bottom: 30vh;
+
+    color: #fff;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+
+    &:before,
+    &:after,
+    .content:before,
+    .content:after {
+        content: " ";
+        display: block;
+
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        
+        background-image: url("#{resource['images/mail-sending-icon.png']}");
+        background-size: 100% auto;
+
+        animation-name: mail-movement;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        
+        width: 50px;
+        height: 50px;
+
+        opacity: 0;
+    }
+
+    &:before {
+        .mail-animation(20%; 30%; 1s);
+    }
+
+    &:after {
+        .mail-animation(70%; 60%; 3s);
+    }
+
+    .content {
+        text-align: center;
+
+        &:before {
+            .mail-animation(30%; 50%; 4s);
+        }
+        
+        &:after {
+            .mail-animation(80%; 20%; 5s);
+        }
+
+        h1 {
+            font-size: 5rem;
+
+            .slogan {
+                display: inline-block;
+                font-size: 0.45em;
+                line-height: 1;
+                text-align: left;
+            }
+        }
+
+        form {
+            margin-top: 2rem;
+
+            input[type="text"] {
+                padding: 0.5rem 1rem;
+                margin-right: 1rem;
+            
+                background-color: transparent;
+                color: #fff;
+            
+                border: none;
+                border-bottom: 2px solid #fff;
+            
+                outline: none;
+            }
+        }
+    }
+}
+
+@keyframes mail-movement {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+        transform: translateX(10%);
+    }
+
+    20% {
+        opacity: 0;
+        transform: translateX(20%);
+    }
+
+    100% {
+        transform: none;
+    }
+}
+
+.transparent {
+    &::-webkit-input-placeholder {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    
+    &::-moz-placeholder {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    
+    &:-ms-input-placeholder {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    
+    &:-moz-placeholder {
+        color: rgba(255, 255, 255, 0.75);
+    }
+}
+
+.btn {
+    &.btn-primary {
+        background-color: #19dcba !important;
+        border-color: #15bea2 !important;
+        cursor: pointer;
+
+        &:active,
+        &:focus {
+            box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 0.2) !important;
+        }
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.signup.container {
+    padding-top: 10vh;
+}
+
+.login.container {
+    padding-top: 20vh;
+}
