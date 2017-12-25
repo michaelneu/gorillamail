@@ -15,6 +15,12 @@ public class UserRepository extends Repository<User> {
 
         parameters.put("email", email);
 
-        return query(User.QUERY_FIND_BY_EMAIL, parameters);
+        final List<User> users = query(User.QUERY_FIND_BY_EMAIL, parameters);
+
+        for (User user : users) {
+            user.getOrganizations().size();
+        }
+
+        return users;
     }
 }
