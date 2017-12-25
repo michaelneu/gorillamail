@@ -8,13 +8,18 @@
         <description>Pageflow config</description>
 
         <navigation-case>
-            <from-outcome>signup_user</from-outcome>
-            <to-view-id>/signup/signup.xhtml</to-view-id>
+            <from-outcome>signup</from-outcome>
+            <to-view-id>/signup.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>signup_success</from-outcome>
-            <to-view-id>/signup/signup_success.xhtml</to-view-id>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>dashboard</from-outcome>
+            <to-view-id>/dashboard.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -135,3 +135,15 @@
 .btn.btn-primary:focus {
     box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 0.2) !important;
 }
+
+.full-width {
+    width: 100%;
+}
+
+.signup.container {
+    padding-top: 10vh;
+}
+
+.login.container {
+    padding-top: 20vh;
+}

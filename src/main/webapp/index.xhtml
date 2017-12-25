@@ -4,26 +4,20 @@
             xmlns:h="http://xmlns.jcp.org/jsf/html"
             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
             xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-    <h:head>
-        <title>gorillamail</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </h:head>
-    <h:body>
-        <ui:composition template="layout.xhtml">
-            <ui:define name="page">
-                <div class="landing">
-                    <div class="content">
-                        <h1>gorillamail <span class="slogan">send with<br />confidence</span></h1>
-        
-                        Join the revolution of e-mail now.
-        
-                        <h:form>
-                            <h:inputText styleClass="transparent" a:placeholder="me@example.com" />
-                            <h:commandButton styleClass="btn btn-primary" value="Sign me up" action="signup_user"/>
-                        </h:form>
-                    </div>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="page">
+            <div class="landing">
+                <div class="content">
+                    <h1>gorillamail <span class="slogan">send with<br />confidence</span></h1>
+
+                    Join the revolution of e-mail now.
+
+                    <h:form>
+                        <h:inputText styleClass="transparent" value="#{userBean.email}" a:placeholder="me@example.com" />
+                        <h:commandButton styleClass="btn btn-primary" value="Sign me up" action="signup" />
+                    </h:form>
                 </div>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+            </div>
+        </ui:define>
+    </ui:composition>
 </html>
