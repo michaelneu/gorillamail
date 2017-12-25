@@ -41,7 +41,7 @@ public class UserBean implements Serializable {
 
     @Getter
     @Setter
-    private User loggedInUser;
+    private User loggedInUser = null;
 
     public String signup() {
         logger.info("Signing up " + email + " (" + name + ")");
@@ -71,5 +71,15 @@ public class UserBean implements Serializable {
         }
 
         return "login";
+    }
+
+    public String logout() {
+        loggedInUser = null;
+
+        return "login";
+    }
+
+    public boolean getIsLoggedIn() {
+        return loggedInUser != null;
     }
 }
