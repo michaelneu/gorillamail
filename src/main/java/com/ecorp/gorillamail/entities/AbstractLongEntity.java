@@ -18,7 +18,7 @@ public abstract class AbstractLongEntity implements Serializable {
     @GeneratedValue( strategy = GenerationType.AUTO )
     @Getter
     @Setter
-    private Long id;
+    private long id;
 
     @Override
     public int hashCode() {
@@ -49,5 +49,4 @@ public abstract class AbstractLongEntity implements Serializable {
     public String toString() {
         return "com.ecorp.gorillamail.entities.LongIdEntity[ id=" + id + " ]";
     }
-
 }
