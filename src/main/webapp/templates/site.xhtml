@@ -6,21 +6,23 @@
             xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="layout.xhtml">
         <ui:define name="page">
-            <h:form styleClass="navbar navbar-dark bg-dark fixed-top">
-                <div class="container">
-                    <h:commandLink styleClass="navbar-brand" action="dashboard">
-                        <img src="#{resource['images/mail-envelope.png']}" />
-                        gorillamail
-                    </h:commandLink>
-                    <div class="pull-right">
-                        <h:commandLink action="dashboard">Logout</h:commandLink>
+            <ui:fragment rendered="#{userBean.isLoggedIn}">
+                <h:form styleClass="navbar navbar-dark bg-dark fixed-top">
+                    <div class="container">
+                        <h:commandLink styleClass="navbar-brand" action="dashboard">
+                            <img src="#{resource['images/mail-envelope.png']}" />
+                            gorillamail
+                        </h:commandLink>
+                        <div class="pull-right">
+                            <h:commandLink action="#{userBean.logout()}">Logout</h:commandLink>
+                        </div>
                     </div>
-                </div>
-            </h:form>
+                </h:form>
 
-            <div class="container">
-                <ui:insert name="site"></ui:insert>
-            </div>
+                <div class="container">
+                    <ui:insert name="site"></ui:insert>
+                </div>
+            </ui:fragment>
         </ui:define>
     </ui:composition>
 </html>
