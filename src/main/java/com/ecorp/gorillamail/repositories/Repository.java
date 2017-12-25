@@ -31,7 +31,7 @@ public abstract class Repository<T extends AbstractLongEntity> implements Reposi
         final T entity = (T)entityManager.find(clazz, id);
 
         if (entity == null) {
-            throw new EntityNotFoundException("Keine Entity vom Typ " + this.clazz.getSimpleName() + " mit Id = " + id + " gefunden!");
+            throw new EntityNotFoundException("No entity " + this.clazz.getSimpleName() + " found with id = " + id);
         }
 
         return entity;

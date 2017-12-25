@@ -142,14 +142,28 @@
 }
 
 .btn {
+    cursor: pointer;
+
     &.btn-primary {
-        background-color: #19dcba !important;
-        border-color: #15bea2 !important;
-        cursor: pointer;
+        background-color: @color-accent !important;
+        border-color: @color-accent-dark !important;
 
         &:active,
         &:focus {
             box-shadow: 0px 0px 0.2rem rgba(0, 0, 0, 0.2) !important;
+        }
+    }
+
+    &.btn-outline-primary {
+        border-color: @color-accent !important;
+        color: @color-accent !important;
+
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: @color-accent !important;
+            border-color: @color-accent-dark !important;
+            color: #fff !important;
         }
     }
 }
@@ -194,6 +208,14 @@
     float: right;
 }
 
-.navbar + .container {
-    padding-top: 5rem;
+.navbar ~ .site {
+    margin-top: 2rem;
+
+    .container {
+        padding-top: 3rem;
+    }
+}
+
+.organization.edit.container h2 {
+    margin-top: 2rem;
 }

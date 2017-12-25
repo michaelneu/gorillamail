@@ -21,5 +21,10 @@
             <from-outcome>dashboard</from-outcome>
             <to-view-id>/dashboard.xhtml</to-view-id>
         </navigation-case>
+
+        <navigation-case>
+            <from-outcome>edit_organization</from-outcome>
+            <to-view-id>/edit_organization.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

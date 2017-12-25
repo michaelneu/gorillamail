@@ -14,12 +14,13 @@
                             gorillamail
                         </h:commandLink>
                         <div class="pull-right">
+                            <ui:insert name="navbar"></ui:insert>
                             <h:commandLink action="#{userBean.logout()}">Logout</h:commandLink>
                         </div>
                     </div>
                 </h:form>
 
-                <div class="container">
+                <div class="site">
                     <ui:insert name="site"></ui:insert>
                 </div>
             </ui:fragment>

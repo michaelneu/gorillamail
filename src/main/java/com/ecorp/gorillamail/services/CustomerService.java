@@ -1,7 +1,9 @@
 package com.ecorp.gorillamail.services;
 
 import com.ecorp.gorillamail.common.qualifiers.OptionCustomer;
+import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.User;
+import com.ecorp.gorillamail.repositories.OrganizationRepository;
 import com.ecorp.gorillamail.repositories.UserRepository;
 import com.ecorp.gorillamail.services.exceptions.LoginException;
 import com.ecorp.gorillamail.services.exceptions.SignupException;
@@ -15,6 +17,9 @@ import org.mindrot.jbcrypt.BCrypt;
 public class CustomerService {
     @Inject
     private UserRepository users;
+
+    @Inject
+    private OrganizationRepository organizations;
 
     @Inject
     @OptionCustomer
@@ -62,5 +67,15 @@ public class CustomerService {
         }
 
         return user;
+    }
+
+    public Organization saveOrganization(Organization organization) {
+        logger.info(organization);
+
+        if (organization.getId() == 0) {
+            return organizations.persist(organization);
+        }
+
+        return organizations.update(organization);
     }
 }

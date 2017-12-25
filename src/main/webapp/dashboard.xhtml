@@ -6,8 +6,19 @@
             xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="templates/site.xhtml">
         <ui:define name="title">Dashboard &#8212; gorillamail</ui:define>
+        <ui:define name="navbar">
+            <h:form>
+                <h:commandButton styleClass="btn btn-outline-primary" value="Add organization" action="#{organizationBean.createOrganization(userBean.loggedInUser)}" />
+            </h:form>
+        </ui:define>
         <ui:define name="site">
-            
+            <div class="container">
+                <ui:repeat var="organization" value="#{userBean.loggedInUser.organizations.toArray()}">
+                    <ui:include src="/partials/organization.xhtml">
+                        <ui:param name="organization" value="#{organization}" />
+                    </ui:include>
+                </ui:repeat>
+            </div>
         </ui:define>
     </ui:composition>
 </html>
