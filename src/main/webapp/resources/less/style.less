@@ -1,16 +1,24 @@
+@color-accent: #19dcba;
+@color-accent-dark: #00babd;
+
 .mail-animation(@top; @left; @delay) {
     top: @top;
     left: @left;
     animation-delay: @delay;
 }
 
+.clearfix() {
+    &:after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+}
+
 .landing {
     position: relative;
 
-    background: linear-gradient(to bottom right, #19dcba, #00babd);
-    padding-top: 30vh;
-    padding-bottom: 30vh;
-
+    background: linear-gradient(to bottom right, @color-accent, @color-accent-dark);
     color: #fff;
     text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
@@ -46,7 +54,15 @@
         .mail-animation(70%; 60%; 3s);
     }
 
+    .container {
+        .clearfix();
+        display: block;
+        padding-top: 14px;
+    }
+
     .content {
+        padding-top: 30vh;
+        padding-bottom: 30vh;
         text-align: center;
 
         &:before {
@@ -150,16 +166,34 @@
     padding-top: 20vh;
 }
 
-nav.navbar {
+.navbar {
+    .clearfix();
     display: block;
 
-    &:after {
-        display: table;
-        content: " ";
-        clear: both;
+    &.navbar-dark {
+        a {
+            padding: 0.75rem;
+            color: #fff;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .navbar-brand {
+            padding: 0px;
+
+            img {
+                height: 2.5rem;
+            }
+        }
     }
 }
 
 .pull-right {
     float: right;
+}
+
+.navbar + .container {
+    padding-top: 5rem;
 }

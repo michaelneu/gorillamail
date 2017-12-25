@@ -6,19 +6,21 @@
             xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="page">
-            <nav class="navbar fixed-top">
-                <h:form styleClass="form-inline pull-right">
-                    <ui:fragment rendered="#{!userBean.isLoggedIn}">
-                        <h:commandButton styleClass="btn btn-primary" value="Login" action="login" />
-                    </ui:fragment>
-
-                    <ui:fragment rendered="#{userBean.isLoggedIn}">
-                        <h:commandButton styleClass="btn btn-primary" value="Dashboard" action="dashboard" />
-                    </ui:fragment>
-                </h:form>
-            </nav>
-
             <div class="landing">
+                <div class="container">
+                    <h:form styleClass="pull-right">
+                        <ui:fragment rendered="#{!userBean.isLoggedIn}">
+                            <h:commandButton styleClass="btn btn-outline-dark" value="Login" action="login" />
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{userBean.isLoggedIn}">
+                            <h:commandButton styleClass="btn btn-dark" value="Dashboard" action="dashboard" />
+                        </ui:fragment>
+                    </h:form>
+                </div>
+
+                <br />
+
                 <div class="content">
                     <h1>gorillamail <span class="slogan">send with<br />confidence</span></h1>
 
