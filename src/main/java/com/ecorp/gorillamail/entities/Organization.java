@@ -2,6 +2,7 @@ package com.ecorp.gorillamail.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -45,7 +46,7 @@ public class Organization extends AbstractLongEntity {
     @Getter
     private Set<User> users = new HashSet<>();
 
-    @OneToMany( mappedBy = "organization" )
+    @OneToMany( mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true )
     @Getter
     @Setter
     private Set<Template> templates = new HashSet<>();
