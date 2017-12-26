@@ -69,6 +69,10 @@ public class CustomerService {
         return user;
     }
 
+    public User loadUserInformationById(long id) {
+        return users.findById(id);
+    }
+
     public Organization saveOrganization(Organization organization) {
         logger.info(organization);
 

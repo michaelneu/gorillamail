@@ -40,15 +40,23 @@ public class UserBean implements Serializable {
     private String password;
 
     @Getter
-    @Setter
-    private User loggedInUser = null;
+    private boolean loggedIn;
+
+    private long loggedInId;
+    public User getLoggedInUser() {
+        if (loggedIn) {
+            return customerService.loadUserInformationById(loggedInId);
+        }
+
+        return new User();
+    }
 
     public String signup() {
         logger.info("Signing up " + email + " (" + name + ")");
 
         try {
             customerService.signup(new User(name, email, password));
-            this.setErrorMessage("");
+            setErrorMessage("");
 
             return "login";
         } catch (SignupException ex) {
@@ -62,8 +70,11 @@ public class UserBean implements Serializable {
         logger.info("Logging in " + email);
 
         try {
-            loggedInUser = customerService.login(email, password);
-            this.setErrorMessage("");
+            final User user = customerService.login(email, password);
+            loggedInId = user.getId();
+            loggedIn = true;
+
+            setErrorMessage("");
 
             return "dashboard";
         } catch (LoginException ex) {
@@ -74,12 +85,8 @@ public class UserBean implements Serializable {
     }
 
     public String logout() {
-        loggedInUser = null;
+        loggedIn = false;
 
         return "login";
-    }
-
-    public boolean getIsLoggedIn() {
-        return loggedInUser != null;
     }
 }

@@ -9,11 +9,11 @@
             <div class="landing">
                 <div class="container">
                     <h:form styleClass="pull-right">
-                        <ui:fragment rendered="#{!userBean.isLoggedIn}">
+                        <ui:fragment rendered="#{!userBean.loggedIn}">
                             <h:commandButton styleClass="btn btn-outline-dark" value="Login" action="login" />
                         </ui:fragment>
 
-                        <ui:fragment rendered="#{userBean.isLoggedIn}">
+                        <ui:fragment rendered="#{userBean.loggedIn}">
                             <h:commandButton styleClass="btn btn-dark" value="Dashboard" action="dashboard" />
                         </ui:fragment>
                     </h:form>

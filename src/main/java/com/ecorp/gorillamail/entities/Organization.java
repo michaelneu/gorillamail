@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,6 +44,11 @@ public class Organization extends AbstractLongEntity {
     )
     @Getter
     private Set<User> users = new HashSet<>();
+
+    @OneToMany( mappedBy = "organization" )
+    @Getter
+    @Setter
+    private Set<Template> templates = new HashSet<>();
 
     public Organization(String name, BillingInformation billingInformation) {
         setName(name);

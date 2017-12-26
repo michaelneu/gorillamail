@@ -1,5 +1,7 @@
 package com.ecorp.gorillamail.repositories;
 
+import com.ecorp.gorillamail.entities.Organization;
+import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.User;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,27 @@ import javax.transaction.Transactional;
 @RequestScoped
 @Transactional
 public class UserRepository extends Repository<User> {
+    private void fetchTemplates(Organization organization) {
+        for (Template template : organization.getTemplates()) {
+            // only fetch, don't do anything
+        }
+
+    }
+    private void fetchOrganizations(User user) {
+        for (Organization organization : user.getOrganizations()) {
+            fetchTemplates(organization);
+        }
+    }
+
+    @Override
+    public User findById(long id) {
+        final User user = super.findById(id);
+
+        fetchOrganizations(user);
+
+        return user;
+    }
+
     public List<User> findByEmail(String email) {
         final Map<String, Object> parameters = new HashMap<>();
 
@@ -18,7 +41,7 @@ public class UserRepository extends Repository<User> {
         final List<User> users = query(User.QUERY_FIND_BY_EMAIL, parameters);
 
         for (User user : users) {
-            user.getOrganizations().size();
+            fetchOrganizations(user);
         }
 
         return users;
