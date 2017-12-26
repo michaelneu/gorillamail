@@ -26,9 +26,9 @@ public class OrganizationBean implements Serializable {
     public String createOrganization(User user) {
         final Organization organization = new Organization("New organization", new BillingInformation());
 
-        user.getOrganizations().add(organization);
-
         currentOrganization = customerService.saveOrganization(organization);
+        currentOrganization.getUsers().add(user);
+        currentOrganization = customerService.saveOrganization(currentOrganization);
 
         return "edit_organization";
     }
