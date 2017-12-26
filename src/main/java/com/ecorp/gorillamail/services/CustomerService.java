@@ -74,8 +74,6 @@ public class CustomerService {
     }
 
     public Organization saveOrganization(Organization organization) {
-        logger.info(organization);
-
         if (organization.getId() == 0) {
             return organizations.persist(organization);
         }
