@@ -2,10 +2,12 @@ package com.ecorp.gorillamail.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,4 +36,14 @@ public class Template extends AbstractLongEntity {
     @Getter
     @Setter
     private Organization organization = null;
+
+    @OneToMany( mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true )
+    @Getter
+    private Set<Mail> mails = new HashSet<>();
+
+    public Template(String name, String body, Organization organization) {
+        setName(name);
+        setBody(body);
+        setOrganization(organization);
+    }
 }

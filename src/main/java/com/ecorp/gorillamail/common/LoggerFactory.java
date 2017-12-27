@@ -1,8 +1,10 @@
 package com.ecorp.gorillamail.common;
 
 import com.ecorp.gorillamail.services.CustomerService;
+import com.ecorp.gorillamail.services.MailService;
 import com.ecorp.gorillamail.services.TemplateService;
 import com.ecorp.gorillamail.common.qualifiers.OptionCustomer;
+import com.ecorp.gorillamail.common.qualifiers.OptionMail;
 import com.ecorp.gorillamail.common.qualifiers.OptionTemplate;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -23,5 +25,12 @@ public class LoggerFactory {
     @OptionTemplate
     public Logger getTemplateLogger() {
         return LogManager.getLogger(TemplateService.class);
+    }
+
+    @Produces
+    @ApplicationScoped
+    @OptionMail
+    public Logger getMailLogger() {
+        return LogManager.getLogger(MailService.class);
     }
 }

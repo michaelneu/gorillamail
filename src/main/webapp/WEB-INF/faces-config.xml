@@ -31,5 +31,10 @@
             <from-outcome>edit_template</from-outcome>
             <to-view-id>/edit_template.xhtml</to-view-id>
         </navigation-case>
+
+        <navigation-case>
+            <from-outcome>prepare_test_mail</from-outcome>
+            <to-view-id>/prepare_test_mail.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

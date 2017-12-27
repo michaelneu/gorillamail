@@ -8,6 +8,7 @@ import com.ecorp.gorillamail.services.CustomerService;
 import com.ecorp.gorillamail.services.TemplateService;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -46,5 +47,9 @@ public class TemplateBean implements Serializable {
         templateService.saveTemplate(currentTemplate);
 
         return ViewIds.DASHBOARD;
+    }
+
+    public void onPrepareTestMail(ActionEvent event) {
+        saveTemplate();
     }
 }
