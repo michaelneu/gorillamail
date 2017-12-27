@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/site.xhtml">
+        <ui:define name="title">Edit template &#8212; gorillamail</ui:define>
+        <ui:define name="head">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.css" integrity="sha256-I8NyGs4wjbMuBSUE40o55W6k6P7tu/7G28/JGUUYCIs=" crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/theme/eclipse.min.css" integrity="sha256-C2k2AGTJsrRfmmxnfxARIMz6/LK8tCUuFcWsG4kMhu8=" crossorigin="anonymous" />
+        </ui:define>
+        <ui:define name="site">
+            <div class="template editor container">
+                <h:form>
+                    <div class="grid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h:inputTextarea value="#{templateBean.currentTemplate.body}" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="grid">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h:inputText styleClass="form-control" value="#{templateBean.currentTemplate.name}" a:placeholder="My template" />
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-2">
+                                            <h:commandButton styleClass="btn btn-outline-primary full-width" value="Save" action="#{templateBean.saveTemplate()}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <iframe width="100%" height="100%" frameborder="no"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.js" integrity="sha256-ag7KgA1S7cuuU2FCC2G7/L8IpaijDSPqzcLLLeJv5Iw=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/xml/xml.min.js" integrity="sha256-o1KP4jcVTvjo4oO7oQsQKQVowvi/yifgtuJvyi83ZCo=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/css/css.min.js" integrity="sha256-EPuuMaFXpkGuc1TQeBblqQDxuPiTFgd8K+l/vGIC5EQ=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/htmlmixed/htmlmixed.min.js" integrity="sha256-0VBA3vSNRo6OsI8dE29rbl7aew05q+zrwKIhinUQ450=" crossorigin="anonymous"></script>
+
+            <script type="text/javascript">
+                window.addEventListener("load", function () {
+                    var editor = $("textarea").get(0),
+                        iframe = $("iframe"),
+                        cm = CodeMirror.fromTextArea(editor, {
+                            mode: "htmlmixed",
+                            theme: "eclipse",
+                            lineNumbers: true,
+                            indentWithTabs: true,
+                            styleActiveLine: true,
+                            matchBrackets: true,
+                        });
+
+                    function updatePreview() {
+                        iframe.contents()
+                              .find("html")
+                              .html(cm.getValue());
+                    }
+
+                    cm.on("change", function (editor) {
+                        editor.save();
+
+                        updatePreview();
+                    });
+
+                    updatePreview();
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

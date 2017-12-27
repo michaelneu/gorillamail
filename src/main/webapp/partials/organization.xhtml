@@ -13,14 +13,20 @@
                     </div>
 
                     <div class="col-md-1">
-                        <h:commandButton styleClass="btn btn-secondary full-width" value="Edit" action="#{organizationBean.editOrganization(organization)}" />
+                        <h:commandButton styleClass="btn btn-outline-secondary full-width" value="Edit" action="#{organizationBean.editOrganization(organization)}" />
                     </div>
 
                     <div class="col-md-2">
-                        <h:commandButton styleClass="btn btn-primary full-width" value="New template" action="#{organizationBean.editOrganization(organization)}" />
+                        <h:commandButton styleClass="btn btn-outline-primary full-width" value="New template" action="#{templateBean.createTemplate(organization)}" />
                     </div>
                 </div>
             </div>
+
+            <ui:repeat var="template" value="#{organization.templates.toArray()}">
+                <ui:include src="template.xhtml">
+                    <ui:param name="template" value="#{template}" />
+                </ui:include>
+            </ui:repeat>
         </h:form>
     </ui:composition>
 </html>

@@ -26,5 +26,10 @@
             <from-outcome>edit_organization</from-outcome>
             <to-view-id>/edit_organization.xhtml</to-view-id>
         </navigation-case>
+
+        <navigation-case>
+            <from-outcome>edit_template</from-outcome>
+            <to-view-id>/edit_template.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
