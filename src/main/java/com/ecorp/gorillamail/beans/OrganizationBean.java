@@ -1,5 +1,6 @@
 package com.ecorp.gorillamail.beans;
 
+import com.ecorp.gorillamail.common.ViewIds;
 import com.ecorp.gorillamail.common.qualifiers.OptionCustomer;
 import com.ecorp.gorillamail.entities.BillingInformation;
 import com.ecorp.gorillamail.entities.Organization;
@@ -30,18 +31,18 @@ public class OrganizationBean implements Serializable {
         currentOrganization.getUsers().add(user);
         currentOrganization = customerService.saveOrganization(currentOrganization);
 
-        return "edit_organization";
+        return ViewIds.EDIT_ORGANIZATION;
     }
 
     public String saveOrganization() {
         customerService.saveOrganization(currentOrganization);
 
-        return "dashboard";
+        return ViewIds.DASHBOARD;
     }
 
     public String editOrganization(Organization organization) {
         currentOrganization = organization;
 
-        return "edit_organization";
+        return ViewIds.EDIT_ORGANIZATION;
     }
 }

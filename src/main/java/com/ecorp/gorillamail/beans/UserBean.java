@@ -1,5 +1,6 @@
 package com.ecorp.gorillamail.beans;
 
+import com.ecorp.gorillamail.common.ViewIds;
 import com.ecorp.gorillamail.common.qualifiers.OptionCustomer;
 import com.ecorp.gorillamail.entities.User;
 import com.ecorp.gorillamail.services.CustomerService;
@@ -58,12 +59,12 @@ public class UserBean implements Serializable {
             customerService.signup(new User(name, email, password));
             setErrorMessage("");
 
-            return "login";
+            return ViewIds.LOGIN;
         } catch (SignupException ex) {
             this.setErrorMessage(ex.getMessage());
         }
 
-        return "signup";
+        return ViewIds.SIGNUP;
     }
 
     public String login() {
@@ -76,17 +77,17 @@ public class UserBean implements Serializable {
 
             setErrorMessage("");
 
-            return "dashboard";
+            return ViewIds.DASHBOARD;
         } catch (LoginException ex) {
             this.setErrorMessage(ex.getMessage());
         }
 
-        return "login";
+        return ViewIds.LOGIN;
     }
 
     public String logout() {
         loggedIn = false;
 
-        return "login";
+        return ViewIds.LOGIN;
     }
 }
