@@ -10,11 +10,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @NoArgsConstructor
 @Entity
 @Table( name = "Users" )
@@ -40,6 +46,7 @@ public class User extends AbstractLongEntity {
     @Setter
     private String password;
 
+    @XmlTransient
     @ManyToMany
     @JoinTable(
       name = "UsersToOrganizations",
