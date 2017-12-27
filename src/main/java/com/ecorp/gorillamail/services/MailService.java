@@ -12,18 +12,21 @@ import com.ecorp.gorillamail.services.mail.MailCompiler;
 import com.ecorp.gorillamail.services.mail.MailServiceIF;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.jws.WebService;
+import javax.jws.WebMethod;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.logging.log4j.Logger;
 
 @RequestScoped
+@WebService
 public class MailService implements MailServiceIF {
     private static final int SMTP_PORT = 25;
     private static final String
-        SMTP_HOST = "maildev",
-        SMTP_USERNAME = "username",
-        SMTP_PASSWORD = "password";
+        SMTP_HOST = "",
+        SMTP_USERNAME = "",
+        SMTP_PASSWORD = "";
 
     @Inject
     private MailCompiler compiler;
@@ -35,6 +38,7 @@ public class MailService implements MailServiceIF {
     @OptionMail
     private Logger logger;
 
+    @WebMethod
     @Override
     public Mail sendMail(User user, Mail mail) throws MailException {
         if (user == null) {
