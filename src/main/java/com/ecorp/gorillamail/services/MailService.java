@@ -88,7 +88,7 @@ public class MailService implements MailServiceIF {
             email.setSmtpPort(SMTP_PORT);
             email.setAuthenticator(new DefaultAuthenticator(SMTP_USERNAME, SMTP_PASSWORD));
 
-            email.setFrom(compiledMail.getFrom());
+            email.setFrom("noreply@gorillamail.space", compiledMail.getFrom());
             email.setSubject(compiledMail.getSubject());
             email.setHtmlMsg(compiledMail.getBody());
             email.addTo(compiledMail.getTo());
