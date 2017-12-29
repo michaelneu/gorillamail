@@ -4,14 +4,20 @@ import com.ecorp.gorillamail.common.qualifiers.OptionTemplate;
 import com.ecorp.gorillamail.entities.ExternalResource;
 import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.Template;
+import com.ecorp.gorillamail.entities.VisitorInformation;
+import com.ecorp.gorillamail.repositories.ExternalResourceRepository;
 import com.ecorp.gorillamail.repositories.TemplateRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.Logger;
 
 @RequestScoped
@@ -20,6 +26,9 @@ public class TemplateService {
 
     @Inject
     private TemplateRepository templates;
+
+    @Inject
+    private ExternalResourceRepository resources;
 
     @Inject
     @OptionTemplate
@@ -68,5 +77,24 @@ public class TemplateService {
         }
 
         return templates.update(template);
+    }
+
+    public String getRedirectUrl(String target) {
+        final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        final String userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
+
+        ExternalResource resource;
+
+        try {
+            resource = resources.findByShortUrl(target);
+        } catch (EntityNotFoundException exception) {
+            return "not found";
+        }
+
+        final VisitorInformation information = new VisitorInformation(userAgent, new Date(), resource);
+        resource.getVisitors().add(information);
+        resources.update(resource);
+
+        return resource.getOriginalUrl();
     }
 }

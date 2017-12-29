@@ -11,6 +11,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,7 +23,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table( name = "ExternalResources" )
+@NamedQueries({
+    @NamedQuery(name = ExternalResource.QUERY_BY_SHORT_URL, query = "SELECT e FROM ExternalResource e WHERE e.shortenedUrl = :url"),
+})
 public class ExternalResource extends AbstractLongEntity {
+    public static final String QUERY_BY_SHORT_URL = "query_by_short_url";
     private static final long serialVersionUID = 0L;
 
     @Column( nullable = false )
