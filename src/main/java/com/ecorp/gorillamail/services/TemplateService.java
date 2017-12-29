@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 @RequestScoped
 public class TemplateService {
-    private static final Pattern PATTERN_LINK = Pattern.compile("(<a\\s+(?:[^>]*?\\s+)?href=([\"']))(.*?)(\\2)");
+    private static final Pattern PATTERN_LINK = Pattern.compile("<a\\s+(?:[^>]*?\\s+)?href=([\"'])(.*?)\\1");
 
     @Inject
     private TemplateRepository templates;
@@ -48,7 +48,7 @@ public class TemplateService {
         final Matcher matcher = PATTERN_LINK.matcher(template.getBody());
 
         while (matcher.find()) {
-            urls.add(matcher.group(3));
+            urls.add(matcher.group(2));
         }
 
         return urls;
