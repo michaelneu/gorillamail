@@ -3,30 +3,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
             xmlns:h="http://xmlns.jcp.org/jsf/html"
             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:f="http://java.sun.com/jsf/core"
             xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="templates/site.xhtml">
         <ui:define name="title">Edit organization &#8212; gorillamail</ui:define>
         <ui:define name="site">
             <div class="organization edit container">
+                <h2>Edit organization</h2>
+                <br />
+
                 <h:form>
                     <div class="grid">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-10">
                                 <div class="form-group">
-                                    <h:inputText styleClass="form-control form-control-lg" id="name" value="#{organizationBean.currentOrganization.name}" a:placeholder="Company Inc." />
+                                    <h:inputText styleClass="form-control" id="name" value="#{organizationBean.currentOrganization.name}" a:placeholder="Company Inc." />
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <h:commandButton styleClass="btn btn-primary btn-lg full-width" value="Save" action="#{organizationBean.saveOrganization()}" />
+                            <div class="col-md-2">
+                                <h:commandButton styleClass="btn btn-outline-primary full-width" value="Save" action="#{organizationBean.saveOrganization()}" />
                             </div>
                         </div>
                     </div>
 
-                    <h2>Billing</h2>
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-form-label" for="account-number">Account number</h:outputLabel>
+                        <h:outputLabel>Account number</h:outputLabel>
                         <h:inputText styleClass="form-control" id="account-number" value="#{organizationBean.currentOrganization.billingInformation.accountNumber}" a:placeholder="123456789" />
+                    </div>
+                </h:form>
+
+                <br />
+
+                <h2>Add member by email address</h2>
+                <br />
+                <h:form>
+                    <div class="grid">
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <h:inputText styleClass="form-control" value="#{email}" a:placeholder="e.g. someone@example.com">
+                                        <f:converter converterId="com.ecorp.gorillamail.beans.converters.DeleteUserDropdownConverter" />
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <h:commandButton styleClass="btn btn-outline-primary full-width" value="Add" action="#{organizationBean.addUser(email)}" actionListener="#{organizationBean.onModifyMembers}" />
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+                <br />
+
+                <h2>Remove member</h2>
+                <br />
+                <h:form>
+                    <div class="grid">
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <h:selectOneMenu styleClass="custom-select full-width" value="#{userToDelete}">
+                                        <f:converter converterId="com.ecorp.gorillamail.beans.converters.DeleteUserDropdownConverter" />
+                                        <f:selectItems value="#{organizationBean.currentOrganization.users}" var="user" itemLabel="#{user.getName()} - #{user.getEmail()}" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <h:commandButton styleClass="btn btn-outline-danger full-width" value="Remove user" action="#{organizationBean.removeUser(userToDelete)}" actionListener="#{organizationBean.onModifyMembers}" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </h:form>
             </div>

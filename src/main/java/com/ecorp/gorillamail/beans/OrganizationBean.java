@@ -7,7 +7,9 @@ import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.User;
 import com.ecorp.gorillamail.services.CustomerService;
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -29,19 +31,37 @@ public class OrganizationBean implements Serializable {
 
         currentOrganization = customerService.saveOrganization(organization);
         currentOrganization.getUsers().add(user);
-        currentOrganization = customerService.saveOrganization(currentOrganization);
+        saveOrganization();
 
         return ViewIds.EDIT_ORGANIZATION;
     }
 
     public String saveOrganization() {
-        customerService.saveOrganization(currentOrganization);
+        currentOrganization = customerService.saveOrganization(currentOrganization);
 
         return ViewIds.DASHBOARD;
     }
 
     public String editOrganization(Organization organization) {
         currentOrganization = organization;
+
+        return ViewIds.EDIT_ORGANIZATION;
+    }
+
+    public void onModifyMembers(ActionEvent event) {
+        saveOrganization();
+    }
+
+    public String addUser(User user) {
+        currentOrganization.getUsers().add(user);
+        saveOrganization();
+
+        return ViewIds.EDIT_ORGANIZATION;
+    }
+
+    public String removeUser(User user) {
+        currentOrganization.getUsers().remove(user);
+        saveOrganization();
 
         return ViewIds.EDIT_ORGANIZATION;
     }
