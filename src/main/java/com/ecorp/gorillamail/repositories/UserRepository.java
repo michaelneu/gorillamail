@@ -16,11 +16,18 @@ public class UserRepository extends Repository<User> {
         for (Template template : organization.getTemplates()) {
             // only fetch, don't do anything
         }
-
     }
+
+    private void fetchUsers(Organization organization) {
+        for (User user : organization.getUsers()) {
+            // only fetch, don't do anything
+        }
+    }
+
     private void fetchOrganizations(User user) {
         for (Organization organization : user.getOrganizations()) {
             fetchTemplates(organization);
+            fetchUsers(organization);
         }
     }
 
