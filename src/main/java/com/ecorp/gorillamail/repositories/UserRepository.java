@@ -14,7 +14,8 @@ import javax.transaction.Transactional;
 public class UserRepository extends Repository<User> {
     private void fetchTemplates(Organization organization) {
         for (Template template : organization.getTemplates()) {
-            // only fetch, don't do anything
+            // fetch links
+            template.getLinks().size();
         }
     }
 

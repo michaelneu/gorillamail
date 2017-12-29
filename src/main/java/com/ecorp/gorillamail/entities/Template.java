@@ -49,6 +49,11 @@ public class Template extends AbstractLongEntity {
     @Getter
     private Set<Mail> mails = new HashSet<>();
 
+    @XmlTransient
+    @OneToMany( mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true )
+    @Getter
+    private Set<ExternalResource> links = new HashSet<>();
+
     public Template(String name, String body, Organization organization) {
         setName(name);
         setBody(body);
