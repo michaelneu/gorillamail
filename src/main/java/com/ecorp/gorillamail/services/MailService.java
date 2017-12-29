@@ -25,7 +25,8 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 @WebService
 public class MailService implements MailServiceIF {
-    private static final int SMTP_PORT = 25;
+    private static final int SMTP_PORT = 465;
+    private static final boolean SMTP_SSL = true;
     private static final String
         SMTP_HOST = "",
         SMTP_USERNAME = "",
@@ -82,6 +83,7 @@ public class MailService implements MailServiceIF {
         try {
             final HtmlEmail email = new HtmlEmail();
 
+            email.setSSLOnConnect(SMTP_SSL);
             email.setHostName(SMTP_HOST);
             email.setSmtpPort(SMTP_PORT);
             email.setAuthenticator(new DefaultAuthenticator(SMTP_USERNAME, SMTP_PASSWORD));
