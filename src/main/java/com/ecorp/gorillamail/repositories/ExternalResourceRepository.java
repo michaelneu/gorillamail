@@ -32,4 +32,14 @@ public class ExternalResourceRepository extends Repository<ExternalResource> {
 
         return resource;
     }
+
+    public ExternalResource findByOriginalUrl(String url) {
+        final Map<String, Object> parameters = new HashMap<>();
+
+        parameters.put("url", url);
+
+        final List<ExternalResource> resources = query(ExternalResource.QUERY_BY_ORIGINAL_URL, parameters);
+
+        return resources.get(0);
+    }
 }

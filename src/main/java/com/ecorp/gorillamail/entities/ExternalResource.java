@@ -25,9 +25,11 @@ import lombok.Setter;
 @Table( name = "ExternalResources" )
 @NamedQueries({
     @NamedQuery(name = ExternalResource.QUERY_BY_SHORT_URL, query = "SELECT e FROM ExternalResource e WHERE e.shortenedUrl = :url"),
+    @NamedQuery(name = ExternalResource.QUERY_BY_ORIGINAL_URL, query = "SELECT e FROM ExternalResource e WHERE e.originalUrl = :url"),
 })
 public class ExternalResource extends AbstractLongEntity {
-    public static final String QUERY_BY_SHORT_URL = "query_by_short_url";
+    public static final String QUERY_BY_SHORT_URL = "query_by_short_url",
+                               QUERY_BY_ORIGINAL_URL = "query_by_original_url";
     private static final long serialVersionUID = 0L;
 
     @Column( nullable = false )
