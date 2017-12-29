@@ -52,6 +52,29 @@ public class CustomerService {
         users.persist(user);
     }
 
+    private boolean secureCompare(String a, String b) {
+        if (a.length() != b.length()) {
+            return false;
+        }
+
+        boolean areEqual = true;
+
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) != b.charAt(i)) {
+                areEqual = false;
+            }
+        }
+
+        return areEqual;
+    }
+
+    private boolean isPasswordCorrect(String expectedPassword, String actualPassword) {
+        final boolean matchesHash = BCrypt.checkpw(actualPassword, expectedPassword),
+                      matchesAsPlaintext = secureCompare(expectedPassword, actualPassword);
+        
+        return matchesHash || matchesAsPlaintext;
+    }
+
     public User login(String email, String password) throws LoginException {
         final List<User> found = users.findByEmail(email);
 
@@ -60,9 +83,8 @@ public class CustomerService {
         }
 
         final User user = found.get(0);
-        final boolean isPasswordCorrect = BCrypt.checkpw(password, user.getPassword());
 
-        if (!isPasswordCorrect) {
+        if (!isPasswordCorrect(user.getPassword(), password)) {
             throw new LoginException("The given password didn't match our stored one");
         }
 
