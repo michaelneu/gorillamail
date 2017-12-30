@@ -5,13 +5,19 @@
             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
             xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition>
-        <div class="grid">
-            <div class="row">
-                <div class="col-md-10">
-                    <h:commandLink value="#{template.name}" action="#{templateBean.editTemplate(template)}" />
-                </div>
-                <div class="col-md-2"></div>
+        <div class="card">
+            <div class="card-body">
+                <h5>#{template.name}</h5>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h:commandLink styleClass="card-link" action="#{templateBean.editTemplate(template)}">
+                        Edit
+                    </h:commandLink>
+                </li>
+            </ul>
         </div>
+
+        <br />
     </ui:composition>
 </html>

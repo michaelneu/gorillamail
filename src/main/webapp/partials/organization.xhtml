@@ -20,13 +20,17 @@
                         <h:commandButton styleClass="btn btn-outline-primary full-width" value="New template" action="#{templateBean.createTemplate(organization)}" />
                     </div>
                 </div>
+                <br />
+                <div class="row">
+                    <ui:repeat var="template" value="#{organization.templates.toArray()}">
+                        <div class="col-md-3">
+                            <ui:include src="template.xhtml">
+                                <ui:param name="template" value="#{template}" />
+                            </ui:include>
+                        </div>
+                    </ui:repeat>
+                </div>
             </div>
-
-            <ui:repeat var="template" value="#{organization.templates.toArray()}">
-                <ui:include src="template.xhtml">
-                    <ui:param name="template" value="#{template}" />
-                </ui:include>
-            </ui:repeat>
         </h:form>
     </ui:composition>
 </html>
