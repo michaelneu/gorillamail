@@ -11,6 +11,11 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
+                    <h:commandLink styleClass="card-link" action="#{analyticsBean.viewAnalytics(template)}">
+                        View analytics
+                    </h:commandLink>
+                </li>
+                <li class="list-group-item">
                     <h:commandLink styleClass="card-link" action="#{templateBean.editTemplate(template)}">
                         Edit
                     </h:commandLink>

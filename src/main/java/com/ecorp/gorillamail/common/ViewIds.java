@@ -7,5 +7,6 @@ public class ViewIds {
         SIGNUP = "signup",
         LOGIN = "login",
         EDIT_ORGANIZATION = "edit_organization",
-        PREPARE_TEST_MAIL = "prepare_test_mail";
+        PREPARE_TEST_MAIL = "prepare_test_mail",
+        ANALYTICS = "analytics";
 }

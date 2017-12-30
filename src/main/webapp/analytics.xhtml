@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/site.xhtml">
+        <ui:define name="title">Analytics &#8212; gorillamail</ui:define>
+        <ui:define name="head">
+            <h:outputScript name="vendor/chartjs/Chart.bundle.min.js" target="body"/>
+        </ui:define>
+        <ui:define name="site">
+            <div class="analytics container">
+                <div class="grid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>Links</h2>
+                            <br />
+
+                            <canvas id="urls" width="100%" height="400"></canvas>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>Devices</h2>
+                            <br />
+
+                            <canvas id="devices" width="100%" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                window.addEventListener("load", function () {
+                    function randint(min, max) {
+                        return Math.floor(Math.random() * (max - min) + min);
+                    }
+
+                    function generateColor() {
+                        var r = randint(90, 250),
+                            g = randint(100, 255),
+                            b = randint(90, 250);
+
+                        return "rgb(" + r + ", " + g + ", " + b + ")";
+                    }
+
+                    var $urls = $("#urls");
+                    $urls.attr("width", $urls.parent().width());
+
+                    new Chart($urls, {
+                        type: "bar",
+                        data: {
+                            datasets: [
+                                <ui:repeat var="link" value="#{analyticsBean.links}">
+                                    {
+                                        label: "#{link.originalUrl}",
+                                        backgroundColor: generateColor(),
+                                        data: [
+                                            #{link.visitors.size()},
+                                        ],
+                                    },
+                                </ui:repeat>
+                            ],
+                        },
+                    });
+
+                    var $devices = $("#devices");
+                    $devices.attr("width", $urls.parent().width());
+
+                    new Chart($devices, {
+                        type: "doughnut",
+                        data: {
+                            labels: [
+                                "Mobile",
+                                "Desktop",
+                            ],
+                            datasets: [
+                                {
+                                    data: [
+                                        #{analyticsBean.mobileCount},
+                                        #{analyticsBean.desktopCount},
+                                    ],
+                                    backgroundColor: [
+                                        generateColor(),
+                                        generateColor(),
+                                    ],
+                                },
+                            ],
+                        },
+                    });
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

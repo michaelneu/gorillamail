@@ -97,4 +97,8 @@ public class TemplateService {
 
         return resource.getOriginalUrl();
     }
+
+    public Template fetchTemplate(Template template) {
+        return templates.resolveById(template.getId());
+    }
 }
