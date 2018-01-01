@@ -8,5 +8,6 @@ public class ViewIds {
         LOGIN = "login",
         EDIT_ORGANIZATION = "edit_organization",
         PREPARE_TEST_MAIL = "prepare_test_mail",
-        ANALYTICS = "analytics";
+        ANALYTICS = "analytics",
+        PROFILE = "profile";
 }

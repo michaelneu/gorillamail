@@ -25,6 +25,10 @@ public class CustomerService {
     @OptionCustomer
     private Logger logger;
 
+    private String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
     public void signup(User user) throws IllegalArgumentException, SignupException {
         if (user == null) {
             throw new IllegalArgumentException("no user provided");
@@ -48,7 +52,7 @@ public class CustomerService {
             throw new SignupException("please provide a password");
         }
 
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        user.setPassword(hashPassword(user.getPassword()));
         users.persist(user);
     }
 
@@ -89,6 +93,18 @@ public class CustomerService {
         }
 
         return user;
+    }
+
+    public User saveUser(User user) {
+        return users.update(user);
+    }
+
+    public User updatePassword(User user, String password) {
+        final String hashedPassword = hashPassword(password);
+
+        user.setPassword(hashedPassword);
+
+        return users.update(user);
     }
 
     public User loadUserInformationById(long id) {

@@ -36,5 +36,10 @@
             <from-outcome>prepare_test_mail</from-outcome>
             <to-view-id>/prepare_test_mail.xhtml</to-view-id>
         </navigation-case>
+
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/profile.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
