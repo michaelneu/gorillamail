@@ -6,14 +6,10 @@ import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.VisitorInformation;
 import com.ecorp.gorillamail.services.TemplateService;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
-import lombok.Setter;
 
 @Named( value = "analyticsBean" )
 @SessionScoped

@@ -6,7 +6,6 @@ import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.User;
 import com.ecorp.gorillamail.repositories.MailRepository;
-import com.ecorp.gorillamail.repositories.TemplateRepository;
 import com.ecorp.gorillamail.services.exceptions.LoginException;
 import com.ecorp.gorillamail.services.exceptions.MailException;
 import com.ecorp.gorillamail.services.exceptions.MailSendException;
@@ -18,7 +17,6 @@ import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.logging.log4j.Logger;
 

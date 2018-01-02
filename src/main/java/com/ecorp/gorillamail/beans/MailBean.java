@@ -15,7 +15,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
-import lombok.Setter;
 import org.apache.logging.log4j.Logger;
 
 @Named( value = "mailBean" )
