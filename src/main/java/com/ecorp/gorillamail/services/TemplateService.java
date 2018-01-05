@@ -78,8 +78,14 @@ public class TemplateService {
 
         return templates.update(template);
     }
+    
+    private String trimLeadingSlashes(String text) {
+        return text.replaceAll("^\\/+", "");
+    }
 
     public String getRedirectUrl(String target) {
+        target = trimLeadingSlashes(target);
+
         final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         final String userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
 
