@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 @ApplicationScoped
 public class MailCompiler {
-    private static final String URL_REWRITE_BASE = "http://redirect.gorillamail.space/?target=";
+    private static final String URL_REWRITE_BASE = "http://redirect.gorillamail.space/";
 
     private static final Pattern PATTERN_LINK = Pattern.compile("(<a\\s+(?:[^>]*?\\s+)?href=([\"']))(.*?)(\\2)");
     private Handlebars handlebars = new Handlebars();
