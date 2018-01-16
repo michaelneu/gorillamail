@@ -73,8 +73,6 @@ public class MailService implements MailServiceIF {
         return false;
     }
     
-    
-    
     private void payMail(Mail mail) throws DebitException {
         final long templateId = mail.getTemplate().getId();
         final Template resolvedTemplate = templates.resolveById(templateId);
@@ -103,6 +101,7 @@ public class MailService implements MailServiceIF {
             try {
                 payMail(mail);
             } catch (DebitException exception) {
+                logger.warn("failed to pay for mail - inserting ad");
                 mail.setAd(true);
             }
         }
@@ -124,6 +123,8 @@ public class MailService implements MailServiceIF {
 
             email.send();
         } catch (Exception exception) {
+            logger.fatal("could not send mail - check mail configuration!");
+            
             throw new MailSendException("error sending mail", exception);
         }
 

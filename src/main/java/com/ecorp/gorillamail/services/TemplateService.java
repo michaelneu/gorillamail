@@ -100,6 +100,8 @@ public class TemplateService {
         final VisitorInformation information = new VisitorInformation(userAgent, new Date(), resource);
         resource.getVisitors().add(information);
         resources.update(resource);
+        
+        logger.info("redirecting " + target);
 
         return resource.getOriginalUrl();
     }

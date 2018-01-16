@@ -30,6 +30,8 @@ public class CustomerService {
     }
 
     public void signup(User user) throws IllegalArgumentException, SignupException {
+        logger.info("signing up " + user.getEmail());
+
         if (user == null) {
             throw new IllegalArgumentException("no user provided");
         }
@@ -40,7 +42,7 @@ public class CustomerService {
             throw new SignupException("user '" + user.getEmail() + "' already exists");
         }
 
-        if (!user.getEmail().matches("[A-Za-z0-9\\.-_]+@[A-Za-z0-9\\.-_]+\\.[A-Za-z0-9\\.-_]+")) {
+        if (!user.getEmail().matches("[A-Za-z0-9\\._-]+@[A-Za-z0-9\\._-]+\\.[A-Za-z0-9\\._-]+")) {
             throw new SignupException("invalid email");
         }
 
@@ -80,9 +82,10 @@ public class CustomerService {
     }
 
     public User login(String email, String password) throws LoginException {
+        logger.info("logging in " + email);
         final List<User> found = users.findByEmail(email);
 
-        if (found.size() == 0) {
+        if (found.isEmpty()) {
             throw new LoginException("No user found with this email address");
         }
 
@@ -100,6 +103,7 @@ public class CustomerService {
     }
 
     public User updatePassword(User user, String password) {
+        logger.info("update password of " + user.getEmail());
         final String hashedPassword = hashPassword(password);
 
         user.setPassword(hashedPassword);

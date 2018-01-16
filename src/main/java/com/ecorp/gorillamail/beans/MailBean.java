@@ -1,6 +1,5 @@
 package com.ecorp.gorillamail.beans;
 
-import com.ecorp.gorillamail.common.qualifiers.OptionMail;
 import com.ecorp.gorillamail.common.ViewIds;
 import com.ecorp.gorillamail.entities.Header;
 import com.ecorp.gorillamail.entities.Mail;
@@ -15,17 +14,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
-import org.apache.logging.log4j.Logger;
 
 @Named( value = "mailBean" )
 @SessionScoped
 public class MailBean implements Serializable {
     @Inject
     private MailService mailService;
-
-    @Inject
-    @OptionMail
-    private Logger logger;
 
     @Getter
     private Template currentTemplate;

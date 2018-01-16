@@ -1,7 +1,6 @@
 package com.ecorp.gorillamail.beans;
 
 import com.ecorp.gorillamail.common.ViewIds;
-import com.ecorp.gorillamail.common.qualifiers.OptionCustomer;
 import com.ecorp.gorillamail.entities.User;
 import com.ecorp.gorillamail.services.CustomerService;
 import com.ecorp.gorillamail.services.exceptions.LoginException;
@@ -12,17 +11,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.Logger;
 
 @Named( value = "userBean" )
 @SessionScoped
 public class UserBean implements Serializable {
     @Inject
     private CustomerService customerService;
-
-    @Inject
-    @OptionCustomer
-    private Logger logger;
 
     @Getter
     @Setter
@@ -53,8 +47,6 @@ public class UserBean implements Serializable {
     }
 
     public String signup() {
-        logger.info("Signing up " + email + " (" + name + ")");
-
         try {
             customerService.signup(new User(name, email, password));
             setErrorMessage("");
@@ -68,8 +60,6 @@ public class UserBean implements Serializable {
     }
 
     public String login() {
-        logger.info("Logging in " + email);
-
         try {
             final User user = customerService.login(email, password);
             loggedInId = user.getId();

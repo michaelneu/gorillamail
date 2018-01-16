@@ -1,7 +1,6 @@
 package com.ecorp.gorillamail.beans;
 
 import com.ecorp.gorillamail.common.ViewIds;
-import com.ecorp.gorillamail.common.qualifiers.OptionTemplate;
 import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.services.CustomerService;
@@ -12,7 +11,6 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
-import org.apache.logging.log4j.Logger;
 
 @Named( value = "templateBean" )
 @SessionScoped
@@ -22,10 +20,6 @@ public class TemplateBean implements Serializable {
 
     @Inject
     private CustomerService customerService;
-
-    @Inject
-    @OptionTemplate
-    private Logger logger;
 
     @Getter
     private Template currentTemplate;

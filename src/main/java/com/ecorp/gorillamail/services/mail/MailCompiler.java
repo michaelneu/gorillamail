@@ -1,9 +1,9 @@
 package com.ecorp.gorillamail.services.mail;
 
+import com.ecorp.gorillamail.common.qualifiers.OptionMail;
 import com.ecorp.gorillamail.entities.ExternalResource;
 import com.ecorp.gorillamail.entities.Header;
 import com.ecorp.gorillamail.entities.Mail;
-import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.Variable;
 import com.ecorp.gorillamail.repositories.ExternalResourceRepository;
@@ -20,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import org.apache.logging.log4j.Logger;
 
 @ApplicationScoped
 public class MailCompiler {
@@ -37,6 +38,10 @@ public class MailCompiler {
     
     @Inject
     private AdServiceIF adService;
+    
+    @Inject
+    @OptionMail
+    private Logger logger;
 
     private String findFrom(Set<Header> headers) {
         Optional<Header> result = headers.stream()
@@ -130,6 +135,8 @@ public class MailCompiler {
         try {
             return adService.requestBannerUrl();
         } catch (AdRequestException exception) {
+            logger.warn("could not get banner url, falling back to default image");
+            
             return "http://im-lamport:8080/gorillamail/javax.faces.resource/images/ad-fallback.jpg.xhtml";
         }
     }
