@@ -16,6 +16,10 @@ public class TemplateRepository extends Repository<Template> {
         for (ExternalResource link : template.getLinks()) {
             // only fetch, don't do anything
         }
+        
+        // fetch billing information
+        template.getOrganization()
+                .getBillingInformation();
 
         return template;
     }

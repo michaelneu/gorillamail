@@ -1,17 +1,22 @@
 package com.ecorp.gorillamail.services;
 
 import com.ecorp.gorillamail.common.qualifiers.OptionMail;
+import com.ecorp.gorillamail.entities.BillingInformation;
 import com.ecorp.gorillamail.entities.Mail;
 import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.User;
 import com.ecorp.gorillamail.repositories.MailRepository;
+import com.ecorp.gorillamail.repositories.TemplateRepository;
 import com.ecorp.gorillamail.services.exceptions.LoginException;
 import com.ecorp.gorillamail.services.exceptions.MailException;
 import com.ecorp.gorillamail.services.exceptions.MailSendException;
+import com.ecorp.gorillamail.services.external.DebitServiceIF;
+import com.ecorp.gorillamail.services.external.exceptions.DebitException;
 import com.ecorp.gorillamail.services.mail.CompiledMail;
 import com.ecorp.gorillamail.services.mail.MailCompiler;
 import com.ecorp.gorillamail.services.mail.MailServiceIF;
+import java.math.BigDecimal;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.jws.WebService;
@@ -23,6 +28,7 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 @WebService
 public class MailService implements MailServiceIF {
+    private static final BigDecimal MAIL_PRICE = new BigDecimal("0.01");
     private static final int SMTP_PORT = 465;
     private static final boolean SMTP_SSL = true;
     private static final String
@@ -37,8 +43,14 @@ public class MailService implements MailServiceIF {
     private MailRepository mails;
 
     @Inject
-    private CustomerService customerService;
+    private TemplateRepository templates;
 
+    @Inject
+    private CustomerService customerService;
+    
+    @Inject
+    private DebitServiceIF debitService;
+    
     @Inject
     @OptionMail
     private Logger logger;
@@ -60,6 +72,17 @@ public class MailService implements MailServiceIF {
 
         return false;
     }
+    
+    
+    
+    private void payMail(Mail mail) throws DebitException {
+        final long templateId = mail.getTemplate().getId();
+        final Template resolvedTemplate = templates.resolveById(templateId);
+        final Organization organization = resolvedTemplate.getOrganization();
+        final BillingInformation billingInformation = organization.getBillingInformation();
+        
+        debitService.requestDebit(MAIL_PRICE, billingInformation, "gorillamail '" + organization.getName() + "'");
+    }
 
     @WebMethod
     @Override
@@ -74,6 +97,14 @@ public class MailService implements MailServiceIF {
 
         if (!isAllowedToSendMail(user, mail)) {
             throw new MailSendException("user not allowed to send a mail with this template");
+        }
+        
+        if (!mail.isAd()) {
+            try {
+                payMail(mail);
+            } catch (DebitException exception) {
+                mail.setAd(true);
+            }
         }
 
         final CompiledMail compiledMail = compiler.compileMail(mail);

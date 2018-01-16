@@ -17,8 +17,8 @@ import javax.xml.ws.WebServiceRef;
 @ApplicationScoped
 @Alternative
 public class DebitService implements DebitServiceIF {
-    private static final long CUSTOMER_NUMBER = 1,
-                              ACCOUNT_NUMBER = 2;
+    private static final long CUSTOMER_NUMBER = 31,
+                              ACCOUNT_NUMBER = 100;
     
     private Account gorillamailAccount;
     private Customer gorillamailCustomer;

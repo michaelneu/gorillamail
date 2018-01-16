@@ -3,11 +3,14 @@ package com.ecorp.gorillamail.services.mail;
 import com.ecorp.gorillamail.entities.ExternalResource;
 import com.ecorp.gorillamail.entities.Header;
 import com.ecorp.gorillamail.entities.Mail;
+import com.ecorp.gorillamail.entities.Organization;
 import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.Variable;
 import com.ecorp.gorillamail.repositories.ExternalResourceRepository;
 import com.ecorp.gorillamail.repositories.TemplateRepository;
 import com.ecorp.gorillamail.services.exceptions.MailCompilerException;
+import com.ecorp.gorillamail.services.external.AdServiceIF;
+import com.ecorp.gorillamail.services.external.exceptions.AdRequestException;
 import com.github.jknack.handlebars.Handlebars;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +25,8 @@ import javax.inject.Inject;
 public class MailCompiler {
     private static final String URL_REWRITE_BASE = "http://redirect.gorillamail.space/";
 
-    private static final Pattern PATTERN_LINK = Pattern.compile("(<a\\s+(?:[^>]*?\\s+)?href=([\"']))(.*?)(\\2)");
+    private static final Pattern PATTERN_LINK = Pattern.compile("(<a\\s+(?:[^>]*?\\s+)?href=([\"']))(.*?)(\\2)"),
+                                 PATTERN_HTML_TAG_CLOSE = Pattern.compile("(<\\/\\s*[bB][oO][dD][yY]\\s*>)");
     private Handlebars handlebars = new Handlebars();
 
     @Inject
@@ -30,6 +34,9 @@ public class MailCompiler {
 
     @Inject
     private ExternalResourceRepository resources;
+    
+    @Inject
+    private AdServiceIF adService;
 
     private String findFrom(Set<Header> headers) {
         Optional<Header> result = headers.stream()
@@ -107,7 +114,8 @@ public class MailCompiler {
             final String originalUrl = matcher.group(3);
             final ExternalResource link = resources.findByOriginalUrl(originalUrl);
 
-            bodyBuilder.append(URL_REWRITE_BASE + link.getShortenedUrl());
+            bodyBuilder.append(URL_REWRITE_BASE);
+            bodyBuilder.append(link.getShortenedUrl());
 
             bodyBuilder.append(matcher.group(4));
             previousEndPosition = matcher.end();
@@ -116,6 +124,29 @@ public class MailCompiler {
         bodyBuilder.append(body.substring(previousEndPosition, body.length()));
 
         return bodyBuilder.toString();
+    }
+    
+    private String getAdImageUrl() {
+        try {
+            return adService.requestBannerUrl();
+        } catch (AdRequestException exception) {
+            return "http://im-lamport:8080/gorillamail/javax.faces.resource/images/ad-fallback.jpg.xhtml";
+        }
+    }
+    
+    private String generateAdImage() {
+        return "<img src='" + getAdImageUrl() + "'>";
+    }
+    
+    private String insertAd(String body) {
+        final Matcher matcher = PATTERN_HTML_TAG_CLOSE.matcher(body);
+        final String adImage = generateAdImage();
+        
+        if (!matcher.find()) {
+            return body + adImage + "</body>";
+        }
+        
+        return matcher.replaceFirst(adImage + "</body>");
     }
 
     public CompiledMail compileMail(Mail mail) throws MailCompilerException {
@@ -131,8 +162,13 @@ public class MailCompiler {
                      subject = findSubject(mail.getHeaders()),
                      interpolatedSubject = interpolate(subject, mail.getVariables()),
                      body = resolvedTemplate.getBody(),
-                     rewrittenBody = rewriteUrls(body),
-                     interpolatedBody = interpolate(rewrittenBody, mail.getVariables());
+                     rewrittenBody = rewriteUrls(body);
+        
+        String interpolatedBody = interpolate(rewrittenBody, mail.getVariables());
+        
+        if (mail.isAd()) {
+            interpolatedBody = insertAd(interpolatedBody);
+        }
 
         return new CompiledMail(from, to, interpolatedSubject, interpolatedBody);
     }
