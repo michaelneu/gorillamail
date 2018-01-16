@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.xml.ws.WebServiceRef;
 
 @ApplicationScoped
+@Alternative
 public class AdService implements AdServiceIF {
     private Customer gorillamailCustomer;
     private Random random;

@@ -10,8 +10,12 @@ import com.ecorp.gorillamail.entities.BillingInformation;
 import com.ecorp.gorillamail.services.external.exceptions.DebitException;
 import java.math.BigDecimal;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.xml.ws.WebServiceRef;
 
+@ApplicationScoped
+@Alternative
 public class DebitService implements DebitServiceIF {
     private static final long CUSTOMER_NUMBER = 1,
                               ACCOUNT_NUMBER = 2;
