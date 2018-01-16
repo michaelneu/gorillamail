@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://im-lamport:8080/ecorp-bank/AccountingService?wsdl" uri="wsdl/im-lamport_8080/ecorp-bank/AccountingService.wsdl"/>
+    <system systemId="http://im-lamport:8080/banner_ad-1.0-SNAPSHOT/OrderService?wsdl" uri="wsdl/im-lamport_8080/banner_ad-1.0-SNAPSHOT/OrderService.wsdl"/>
 </catalog>
