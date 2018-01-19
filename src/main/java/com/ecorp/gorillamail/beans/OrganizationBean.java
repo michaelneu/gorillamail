@@ -20,6 +20,9 @@ public class OrganizationBean implements Serializable {
     private CustomerService customerService;
 
     @Getter
+    private String errorMessageAddingUser = "";
+
+    @Getter
     @Setter
     private Organization currentOrganization = null;
 
@@ -34,6 +37,7 @@ public class OrganizationBean implements Serializable {
     }
 
     public String saveOrganization() {
+        errorMessageAddingUser = "";
         currentOrganization = customerService.saveOrganization(currentOrganization);
 
         return ViewIds.DASHBOARD;
@@ -50,8 +54,12 @@ public class OrganizationBean implements Serializable {
     }
 
     public String addUser(User user) {
-        currentOrganization.getUsers().add(user);
-        saveOrganization();
+        if (user == null) {
+            errorMessageAddingUser = "no such user";
+        } else {
+            currentOrganization.getUsers().add(user);
+            saveOrganization();
+        }
 
         return ViewIds.EDIT_ORGANIZATION;
     }
