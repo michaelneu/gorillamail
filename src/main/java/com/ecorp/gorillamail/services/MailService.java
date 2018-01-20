@@ -16,12 +16,12 @@ import com.ecorp.gorillamail.services.external.exceptions.DebitException;
 import com.ecorp.gorillamail.services.mail.CompiledMail;
 import com.ecorp.gorillamail.services.mail.MailCompiler;
 import com.ecorp.gorillamail.services.mail.MailServiceIF;
+import com.ecorp.gorillamail.services.mail.SMTP;
 import java.math.BigDecimal;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
-import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.logging.log4j.Logger;
 
@@ -29,12 +29,9 @@ import org.apache.logging.log4j.Logger;
 @WebService
 public class MailService implements MailServiceIF {
     private static final BigDecimal MAIL_PRICE = new BigDecimal("0.01");
-    private static final int SMTP_PORT = 465;
-    private static final boolean SMTP_SSL = true;
-    private static final String
-        SMTP_HOST = "",
-        SMTP_USERNAME = "",
-        SMTP_PASSWORD = "";
+
+    @Inject
+    private SMTP smtp;
 
     @Inject
     private MailCompiler compiler;
@@ -111,17 +108,12 @@ public class MailService implements MailServiceIF {
         try {
             final HtmlEmail email = new HtmlEmail();
 
-            email.setSSLOnConnect(SMTP_SSL);
-            email.setHostName(SMTP_HOST);
-            email.setSmtpPort(SMTP_PORT);
-            email.setAuthenticator(new DefaultAuthenticator(SMTP_USERNAME, SMTP_PASSWORD));
-
             email.setFrom("noreply@gorillamail.space", compiledMail.getFrom());
             email.setSubject(compiledMail.getSubject());
             email.setHtmlMsg(compiledMail.getBody());
             email.addTo(compiledMail.getTo());
 
-            email.send();
+            smtp.send(email);
         } catch (Exception exception) {
             logger.fatal("could not send mail - check mail configuration!");
             
