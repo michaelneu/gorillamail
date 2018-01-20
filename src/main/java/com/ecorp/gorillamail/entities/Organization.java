@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -22,9 +20,6 @@ import org.hibernate.annotations.FetchMode;
 @NoArgsConstructor
 @Entity
 @Table( name = "Organizations" )
-@NamedQueries({
-    @NamedQuery(name = Organization.QUERY_FIND_BY_USER, query = "SELECT o FROM Organization o JOIN FETCH o.users u WHERE u.id = :id"),
-})
 public class Organization extends AbstractLongEntity {
     public static final String QUERY_FIND_BY_USER = "find_by_user";
     private static final long serialVersionUID = 0L;
