@@ -1,7 +1,5 @@
 package com.ecorp.gorillamail.repositories;
 
-import com.ecorp.gorillamail.entities.Organization;
-import com.ecorp.gorillamail.entities.Template;
 import com.ecorp.gorillamail.entities.User;
 import java.util.HashMap;
 import java.util.List;
