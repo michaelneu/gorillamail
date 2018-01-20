@@ -11,10 +11,6 @@ import javax.transaction.Transactional;
 @RequestScoped
 @Transactional
 public class ExternalResourceRepository extends Repository<ExternalResource> {
-    private void fetchResource(ExternalResource resource) {
-        resource.getVisitors().size();
-    }
-
     public ExternalResource findByShortUrl(String url) throws EntityNotFoundException {
         final Map<String, Object> parameters = new HashMap<>();
 
@@ -26,11 +22,7 @@ public class ExternalResourceRepository extends Repository<ExternalResource> {
             throw new EntityNotFoundException("no such short url");
         }
 
-        final ExternalResource resource = resources.get(0);
-
-        fetchResource(resource);
-
-        return resource;
+        return resources.get(0);
     }
 
     public ExternalResource findByOriginalUrl(String url) {

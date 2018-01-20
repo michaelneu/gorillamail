@@ -107,6 +107,6 @@ public class TemplateService {
     }
 
     public Template fetchTemplate(Template template) {
-        return templates.resolveById(template.getId());
+        return templates.findById(template.getId());
     }
 }

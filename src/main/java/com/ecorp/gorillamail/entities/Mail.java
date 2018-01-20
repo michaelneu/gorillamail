@@ -6,6 +6,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,6 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -29,7 +32,7 @@ public class Mail extends AbstractLongEntity {
     @Setter
     private boolean ad;
 
-    @ElementCollection
+    @ElementCollection( fetch = FetchType.EAGER )
     @CollectionTable(
         name = "Variables",
         joinColumns = @JoinColumn( name = "mail" )
@@ -37,7 +40,7 @@ public class Mail extends AbstractLongEntity {
     @Getter
     private Set<Variable> variables = new HashSet<>();
 
-    @ElementCollection
+    @ElementCollection( fetch = FetchType.EAGER )
     @CollectionTable(
         name = "Headers",
         joinColumns = @JoinColumn( name = "mail" )
@@ -45,7 +48,7 @@ public class Mail extends AbstractLongEntity {
     @Getter
     private Set<Header> headers = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.EAGER )
     @JoinColumn( name = "template" )
     @Getter
     @Setter

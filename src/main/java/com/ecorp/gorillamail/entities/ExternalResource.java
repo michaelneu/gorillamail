@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -14,6 +15,8 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @NoArgsConstructor
 @Entity
@@ -43,7 +46,8 @@ public class ExternalResource extends AbstractLongEntity {
     @Setter
     private Template template = null;
 
-    @OneToMany( mappedBy = "resource", cascade = CascadeType.ALL, orphanRemoval = true )
+    @Fetch( FetchMode.SELECT )
+    @OneToMany( mappedBy = "resource", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
     @Getter
     private Set<VisitorInformation> visitors = new HashSet<>();
 

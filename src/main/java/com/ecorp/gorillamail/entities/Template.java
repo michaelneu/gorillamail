@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -47,12 +50,14 @@ public class Template extends AbstractLongEntity {
     private Organization organization = null;
 
     @XmlTransient
-    @OneToMany( mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true )
+    @Fetch( FetchMode.SELECT )
+    @OneToMany( mappedBy = "template", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
     @Getter
     private Set<Mail> mails = new HashSet<>();
 
     @XmlTransient
-    @OneToMany( mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true )
+    @Fetch( FetchMode.SELECT )
+    @OneToMany( mappedBy = "template", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
     @Getter
     private Set<ExternalResource> links = new HashSet<>();
 

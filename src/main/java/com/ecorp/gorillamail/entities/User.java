@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -17,6 +18,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -46,7 +49,8 @@ public class User extends AbstractLongEntity {
     private String password;
 
     @XmlTransient
-    @ManyToMany
+    @Fetch( FetchMode.SELECT )
+    @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
       name = "UsersToOrganizations",
       joinColumns = @JoinColumn(name = "user"),

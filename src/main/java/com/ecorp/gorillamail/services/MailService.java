@@ -72,7 +72,7 @@ public class MailService implements MailServiceIF {
     
     private void payMail(Mail mail) throws DebitException {
         final long templateId = mail.getTemplate().getId();
-        final Template resolvedTemplate = templates.resolveById(templateId);
+        final Template resolvedTemplate = templates.findById(templateId);
         final Organization organization = resolvedTemplate.getOrganization();
         final BillingInformation billingInformation = organization.getBillingInformation();
         

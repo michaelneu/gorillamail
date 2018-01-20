@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -15,6 +16,8 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @NoArgsConstructor
 @Entity
@@ -36,7 +39,8 @@ public class Organization extends AbstractLongEntity {
     @Setter
     private BillingInformation billingInformation = new BillingInformation();
 
-    @ManyToMany
+    @Fetch( FetchMode.SELECT )
+    @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
       name = "UsersToOrganizations",
       joinColumns = @JoinColumn(name = "organization"),
@@ -45,7 +49,8 @@ public class Organization extends AbstractLongEntity {
     @Getter
     private Set<User> users = new HashSet<>();
 
-    @OneToMany( mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true )
+    @Fetch( FetchMode.SELECT )
+    @OneToMany( mappedBy = "organization", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
     @Getter
     @Setter
     private Set<Template> templates = new HashSet<>();
