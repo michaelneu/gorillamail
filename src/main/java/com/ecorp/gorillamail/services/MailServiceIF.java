@@ -1,4 +1,4 @@
-package com.ecorp.gorillamail.services.mail;
+package com.ecorp.gorillamail.services;
 
 import com.ecorp.gorillamail.entities.Mail;
 import com.ecorp.gorillamail.entities.User;

@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 @RequestScoped
-public class CustomerService {
+public class CustomerService implements CustomerServiceIF {
     @Inject
     private UserRepository users;
 
@@ -29,6 +29,7 @@ public class CustomerService {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
+    @Override
     public void signup(User user) throws IllegalArgumentException, SignupException {
         logger.info("signing up " + user.getEmail());
 
@@ -81,6 +82,7 @@ public class CustomerService {
         return matchesHash || matchesAsPlaintext;
     }
 
+    @Override
     public User login(String email, String password) throws LoginException {
         logger.info("logging in " + email);
         final List<User> found = users.findByEmail(email);
@@ -98,10 +100,12 @@ public class CustomerService {
         return user;
     }
 
+    @Override
     public User saveUser(User user) {
         return users.update(user);
     }
 
+    @Override
     public User updatePassword(User user, String password) {
         logger.info("update password of " + user.getEmail());
         final String hashedPassword = hashPassword(password);
@@ -111,10 +115,12 @@ public class CustomerService {
         return users.update(user);
     }
 
+    @Override
     public User loadUserInformationById(long id) {
         return users.findById(id);
     }
 
+    @Override
     public Organization saveOrganization(Organization organization) {
         if (organization.getId() == 0) {
             return organizations.persist(organization);

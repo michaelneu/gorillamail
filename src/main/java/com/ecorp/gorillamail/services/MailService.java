@@ -15,7 +15,6 @@ import com.ecorp.gorillamail.services.external.DebitServiceIF;
 import com.ecorp.gorillamail.services.external.exceptions.DebitException;
 import com.ecorp.gorillamail.services.mail.CompiledMail;
 import com.ecorp.gorillamail.services.mail.MailCompiler;
-import com.ecorp.gorillamail.services.mail.MailServiceIF;
 import com.ecorp.gorillamail.services.mail.SMTP;
 import java.math.BigDecimal;
 import javax.enterprise.context.RequestScoped;

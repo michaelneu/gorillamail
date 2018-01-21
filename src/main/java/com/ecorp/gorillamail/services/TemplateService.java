@@ -21,7 +21,7 @@ import javax.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.Logger;
 
 @RequestScoped
-public class TemplateService {
+public class TemplateService implements TemplateServiceIF {
     private static final Pattern PATTERN_LINK = Pattern.compile("<a\\s+(?:[^>]*?\\s+)?href=([\"'])(.*?)\\1");
 
     @Inject
