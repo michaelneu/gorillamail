@@ -24,7 +24,7 @@
                 <div class="content">
                     <h1>gorillamail <span class="slogan">send with<br />confidence</span></h1>
 
-                    Join the revolution of e-mail now. Brought to you by ecorp
+                    Join the revolution of e-mail now. Brought to you by ecorp.
 
                     <h:form>
                         <h:inputText styleClass="transparent" value="#{userBean.email}" a:placeholder="me@example.com" />
@@ -37,15 +37,60 @@
                 <br />
                 <br />
 
-                <h2>How does it work?</h2>
-                <p>gorillamail uses the latest technology available in 2018 to bring you the best user experience.</p>
-                <p>To integrate <a href="MailService?wsdl" target="_blank">gorillamail</a>, follow the simple step-by-step tutorial:</p>
+                <div class="grid">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <br />
+                            <br />
+                            <h2>About gorillamail</h2>
+                            <p>We at gorillamail use the latest technology available in 2018 to bring you the best user and developer experience we can. We offer customizable mail templates, organizations and link tracking - all one click away. So go ahead and sign up using the form above!</p>
+                            <br />
+                            <br />
+                            <br />
 
-                <br />
+                            <h2>Technical details</h2>
+                            <ul>
+                                <li>Most entities use <i>FetchType.EAGER</i> to fetch their collections. This is not the best solution and can cause a single entity to load the entire database into memory, but it prevents ugly workarounds, like calling <i>collection.size()</i> to load a collection, and is thus acceptable for this very limited project. In real-world-applications one may use different technologies or libraries to further abstract the JPA and its behaviour</li>
+                                <li>Bootstrap is used for UI and layout matters, as well as custom CSS using the LESSCSS preprocessor. Furthermore, CodeMirror is used to edit mail templates</li>
+                                <li>External services used by gorillamail (bannerad and ecorp-bank) were wrapped for a more convenient usage and aren't used directly. To select whether the real external service or a basic mock should be used, modify the [beans.xml](src/main/webapp/WEB-INF/beans.xml)</li>
+                                <li>Adding and removing users in an organization's settings form uses converters</li>
+                                <li>The [diagrams provided in the docs folder](docs) required some changes to better meet the requirements of gorillamail:</li>
+                            </ul>
 
-                <script src="https://gist.github.com/michaelneu/19ad1cee3e3275d65ee0c3c93a4898d3.js?file=howto.java"></script>
+                            <h3>Class diagram</h3>
+                            <ul>
+                                <li>Templates don't include headers anymore, and the <i>sentMails</i> property was renamed to <i>mails</i></li>
+                                <li>The Mail entity now only contains a boolean <i>ad</i> property to indicate ads; all other properties displayed in the diagram were dropped</li>
+                                <li>Variable, Header and BillingInformation are Embeddables now and don't have an <i>id</i> property</li>
+                            </ul>
 
-                <br />
+                            <h3>Component diagram</h3>
+                            <ul>
+                                <li>MailServiceIF now throws a MailException and its <i>sendMails</i> method was dropped</li>
+                                <li>Only the MailService uses external and internal services now</li>
+                                <li>Repositories were used to access the EntityManager persistence layer</li>
+                            </ul>
+
+                            <br />
+                            <br />
+                            <br />
+
+                            <h2>I'm a developer, show me some code</h2>
+                            <p>To integrate <a href="MailService?wsdl" target="_blank">gorillamail</a>, follow our simple step-by-step tutorial:</p>
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <script src="https://gist.github.com/michaelneu/19ad1cee3e3275d65ee0c3c93a4898d3.js?file=howto.java"></script>
+                            
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
             </div>
         </ui:define>
     </ui:composition>
