@@ -18,9 +18,16 @@
                             </ui:fragment>
 
                             <h:form>
+                                <h2>Sign up for gorillamail</h2>
+                                <br />
+
                                 <div class="form-group">
                                     <h:outputLabel styleClass="col-form-label" for="email">E-Mail</h:outputLabel>
                                     <h:inputText styleClass="form-control" id="email" value="#{userBean.email}" a:placeholder="me@example.com" />
+
+                                    <br />
+                                    <p>We'll use your email address to send you preview emails of your templates, so provide your <b>real</b> email address.</p>
+                                    <p>Please be aware that this service <b>sends real mails</b> using a real SMTP server at <a href="http://gorillamail.space" target="_blank">gorillamail.space</a>.</p>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel styleClass="col-form-label" for="name">Name</h:outputLabel>
